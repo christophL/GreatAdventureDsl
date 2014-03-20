@@ -1,0 +1,9 @@
+grammar at.ac.uibk.greatAdventure.GreatAdventure with org.eclipse.xtext.common.Terminals
+
+generate greatAdventure "http://www.ac.at/uibk/greatAdventure/GreatAdventure"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';
