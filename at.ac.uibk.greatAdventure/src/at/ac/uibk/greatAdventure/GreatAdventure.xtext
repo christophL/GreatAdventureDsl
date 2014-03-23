@@ -2,8 +2,43 @@ grammar at.ac.uibk.greatAdventure.GreatAdventure with org.eclipse.xtext.common.T
 
 generate greatAdventure "http://www.ac.at/uibk/greatAdventure/GreatAdventure"
 
-Model:
-	greetings+=Greeting*;
+Adventure:
+	title = AdventureTitle
+	itemDef += ItemDefinition+
+	sceneDef += SceneDefinition+
+;
 	
-Greeting:
-	'Hello' name=ID '!';
+AdventureTitle:
+	name=STRING ";"
+;
+ItemDefinition:
+	("A" | "The")? name=STRING "{"
+	( pickup ?= "- can be picked up.")?
+	"- looks like" img=STRING "."
+	(uses+=UseDefinition)*
+	"}"
+;
+
+UseDefinition:
+	"- you can" name+=STRING ("it which" | "with it") "{"
+	("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)? ".")*
+	("+ adds" adds+=[ItemDefinition] ".")?
+	("+ removes" dels+=[ItemDefinition] ".")?
+	("+ says" text+=STRING ".")?
+	("+ takes you to the" followScene=[SceneDefinition] ".") 
+	"}"
+;
+
+SceneDefinition:
+	"In the" name+=STRING "is" "{"
+	("- a" items+=[ItemDefinition] ".")+ //("at position" "(" xpos+=NUM "," ypos+=NUM")")?
+	"}"
+;
+
+
+
+terminal NUM:
+	('0' .. '9')+
+;
+	
+
