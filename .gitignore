@@ -1,4 +1,9 @@
 .directory
 .settings
+*/bin/*
+at.ac.uibk.greatAdventure.ui/src/*
+at.ac.uibk.greatAdventure.ui/src-gen/*
+at.ac.uibk.greatAdventure.ui/xtend-gen/*
+at.ac.uibk.greatAdventure.tests/src-gen/*
 *.class
 *~
