@@ -21,17 +21,24 @@ ItemDefinition:
 
 UseDefinition:
 	"- you can" name+=STRING ("it which" | "with it") "{"
-	("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)? ".")*
-	("+ adds" adds+=[ItemDefinition] ".")?
-	("+ removes" dels+=[ItemDefinition] ".")?
+	("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)? ".")?
+	("+ adds" adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*".")?
+	("+ removes" dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*".")?
 	("+ says" text+=STRING ".")?
-	("+ takes you to the" followScene=[SceneDefinition] ".") 
+	("+ takes you to the" followScene=[SceneDefinition] ".")?
 	"}"
 ;
 
 SceneDefinition:
-	"In the" name+=STRING "is" "{"
-	("- a" items+=[ItemDefinition] ".")+ //("at position" "(" xpos+=NUM "," ypos+=NUM")")?
+	"The" name=STRING "looks like" img=STRING "."
+	"In it is" "{"
+	("- a" items+=[ItemDefinition] ("at position" "(" xpos+=NUM "," ypos+=NUM")")?".")+ //
+	"}"
+;
+
+SceneDescription:
+	"In the" name=[SceneDefinition] "is" "{"
+	("- a" items+=[ItemDefinition] ("at position" "(" xpos+=NUM "," ypos+=NUM")")?".")+ //
 	"}"
 ;
 

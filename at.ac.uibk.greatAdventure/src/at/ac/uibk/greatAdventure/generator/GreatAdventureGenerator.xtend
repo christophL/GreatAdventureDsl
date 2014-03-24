@@ -6,6 +6,7 @@ package at.ac.uibk.greatAdventure.generator
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import at.ac.uibk.greatAdventure.greatAdventure.Adventure
 
 /**
  * Generates code from your model files on save.
@@ -15,10 +16,14 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 class GreatAdventureGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(typeof(Greeting))
-//				.map[name]
-//				.join(', '))
+		fsa.generateFile('adventure.js', (resource.contents.get(0) as Adventure).contents)
 	}
+	
+	def CharSequence getContents(Adventure adventure) '''
+		var adventureName = "«
+			adventure.title.name
+		»";
+	'''
+	
 }
+

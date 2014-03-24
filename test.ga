@@ -1,12 +1,12 @@
 "The Great Adventure";
 
-
 A "cup"{
 	- can be picked up.
-	- looks like "cup.jpg".
+	- looks like "hugo.jpg".
 }
 
-In the "house" is{
+The "house" looks like "house.jpg".
+In it is {
 	- a cup.
 }
 
