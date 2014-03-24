@@ -6,6 +6,7 @@ Adventure:
 	title = AdventureTitle
 	itemDef += ItemDefinition+
 	sceneDef += SceneDefinition+
+	startDef = StartDefinition
 ;
 	
 AdventureTitle:
@@ -36,12 +37,12 @@ SceneDefinition:
 	"}"
 ;
 
-SceneDescription:
-	"In the" name=[SceneDefinition] "is" "{"
-	("- a" items+=[ItemDefinition] ("at position" "(" xpos+=NUM "," ypos+=NUM")")?".")+ //
-	"}"
+StartDefinition:
+	"At first you:" "{"
+		"- are at the " startLoc=[SceneDefinition] "."
+		("- carry " startItems+=[ItemDefinition] ("," startItems+=[ItemDefinition])* ".")? 
+	 "}"
 ;
-
 
 
 terminal NUM:
