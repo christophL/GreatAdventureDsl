@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="greatAdventure" nsURI="http://www.ac.at/uibk/greatAdventure/GreatAdventure"
+    nsPrefix="greatAdventure">
+  <eClassifiers xsi:type="ecore:EClass" name="Adventure">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="title" eType="#//AdventureTitle"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="itemDef" upperBound="-1"
+        eType="#//ItemDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sceneDef" upperBound="-1"
+        eType="#//SceneDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startDef" eType="#//StartDefinition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdventureTitle">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ItemDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pickup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="img" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uses" upperBound="-1" eType="#//UseDefinition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UseDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reqs" unique="false" upperBound="-1"
+        eType="#//ItemDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="altText" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adds" unique="false" upperBound="-1"
+        eType="#//ItemDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dels" unique="false" upperBound="-1"
+        eType="#//ItemDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="followScene" eType="#//SceneDefinition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SceneDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="img" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
+        eType="#//ItemPositionDefinition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ItemPositionDefinition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="item" eType="#//ItemDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xpos" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ypos" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StartDefinition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startLoc" eType="#//SceneDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startItems" unique="false"
+        upperBound="-1" eType="#//ItemDefinition"/>
+  </eClassifiers>
+</ecore:EPackage>

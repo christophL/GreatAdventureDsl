@@ -1,0 +1,22 @@
+"Hello WOrld"
+
+In the beginning you:
+	- are at the House
+
+A "Name": 
+	- looks like "http://example.com"
+	- can be picked up
+	- you can "open" it, which:
+		+ adds Name, Name, Name
+		+ removes Name
+		+ takes you to the House
+		+ requires Name or says "altText"
+
+The "Treehouse" looks like "a treehouse?!".
+
+An "Name":
+	- looks like "Img"
+	
+The "House" looks like "Img" and in it are:
+	- a Name at ( 1,1)
+
