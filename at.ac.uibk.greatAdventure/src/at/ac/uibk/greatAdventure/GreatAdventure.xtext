@@ -3,50 +3,62 @@ grammar at.ac.uibk.greatAdventure.GreatAdventure with org.eclipse.xtext.common.T
 generate greatAdventure "http://www.ac.at/uibk/greatAdventure/GreatAdventure"
 
 Adventure:
-	title = AdventureTitle
-	itemDef += ItemDefinition+
-	sceneDef += SceneDefinition+
+	title = AdventureTitle 
+	(itemDef += ItemDefinition+ & sceneDef += SceneDefinition+)*
 	startDef = StartDefinition
+	(itemDef += ItemDefinition+ & sceneDef += SceneDefinition+)*
 ;
 	
 AdventureTitle:
-	name=STRING ";"
+	name=STRING
 ;
 ItemDefinition:
-	("A" | "The")? name=STRING "{"
-	( pickup ?= "- can be picked up.")?
-	"- looks like" img=STRING "."
-	(uses+=UseDefinition)*
-	"}"
+	("A" | "An") name=STRING ":"
+	( 
+		( pickup ?= "- can be picked up")?
+		&
+		"- looks like" img=STRING
+		&
+		(uses+=UseDefinition)*
+	
+	)
+	
 ;
 
 UseDefinition:
-	"- you can" name+=STRING ("it which" | "with it") "{"
-	("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)? ".")?
-	("+ adds" adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*".")?
-	("+ removes" dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*".")?
-	("+ says" text+=STRING ".")?
-	("+ takes you to the" followScene=[SceneDefinition] ".")?
-	"}"
+	"- you can" name+=STRING "with"? "it, which:" 
+	(
+		("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)?)?
+		&
+		("+ adds" adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
+		&
+		("+ removes" dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+		&
+		("+ says" text+=STRING)?
+		&
+		("+ takes you to the" followScene=[SceneDefinition])?
+	)
+	
 ;
 
 SceneDefinition:
-	"The" name=STRING "looks like" img=STRING "."
-	"In it is" "{"
-	("- a" items+=[ItemDefinition] ("at position" "(" xpos+=NUM "," ypos+=NUM")")?".")+ //
-	"}"
+	"The" name=STRING "looks like" img=STRING 
+	(("and in it are:" items += ItemPositionDefinition+) | ".")
+	
+;
+
+ItemPositionDefinition:
+	"- a" item=[ItemDefinition] ("at" "(" xpos=INT "," ypos=INT ")")?
 ;
 
 StartDefinition:
-	"At first you:" "{"
-		"- are at the " startLoc=[SceneDefinition] "."
-		("- carry " startItems+=[ItemDefinition] ("," startItems+=[ItemDefinition])* ".")? 
-	 "}"
+	"In the beginning you:" 
+	(
+		"- are at the" startLoc=[SceneDefinition]
+		&
+		("- have" startItems+=[ItemDefinition] ("," startItems+=[ItemDefinition])*)?
+	) 
 ;
 
 
-terminal NUM:
-	('0' .. '9')+
-;
-	
 
