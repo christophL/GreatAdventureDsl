@@ -13,20 +13,20 @@ AdventureTitle:
 	name=STRING
 ;
 ItemDefinition:
-	("A" | "An") name=STRING ":"
+	("A" | "An" | "Ms." | "Mrs." | "Mr.") name=STRING ":"
 	( 
 		( pickup ?= "- can be picked up")?
 		&
 		"- looks like" img=STRING
 		&
 		(uses+=UseDefinition)*
-	
+		&
+		(dialog+=DialogDefintion)?
 	)
-	
 ;
 
 UseDefinition:
-	"- you can" name+=STRING "with"? "it, which:" 
+	"- you can" name+=STRING "with"? ("it, which:" | "her, which:" | "him, which") 
 	(
 		("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)?)?
 		&
@@ -39,6 +39,41 @@ UseDefinition:
 		("+ takes you to the" followScene=[SceneDefinition])?
 	)
 	
+;
+
+DialogDefintion:
+	"- talks with you:"
+		talk = TalkDefinition
+;
+
+TalkDefinition:
+	(("+ it says" | "+ she says" | "+ he says") say=STRING)
+	&
+	(("+ it adds" | "+ she adds" | "+ he adds") adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
+	&
+	(("+ it removes" | "+ she removes" | "+ he removes") dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+	&
+	(((answers += AnswerDefinition)+ "+ no more answers") | "+ you do not answer")	
+;
+
+AnswerDefinition:
+	"+ you say" answer=STRING ":"
+		talk=TalkDefinitionMinus
+;
+
+TalkDefinitionMinus:
+	(("- it says" | "- she says" | "- he says") say=STRING)
+	&
+	(("- it adds" | "- she adds" | "- he adds") adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
+	&
+	(("- it removes" | "- she removes" | "- he removes") dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+	&
+	((answers += AnswerDefinitionMinus)+ "- no more answers" | "- you do not answer")
+;
+
+AnswerDefinitionMinus:
+	"- you say" answer=STRING ":"
+		talk=TalkDefinition
 ;
 
 SceneDefinition:
