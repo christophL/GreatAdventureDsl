@@ -4,11 +4,15 @@
 package at.ac.uibk.greatAdventure.generator
 
 import at.ac.uibk.greatAdventure.greatAdventure.Adventure
+import at.ac.uibk.greatAdventure.greatAdventure.ItemDefinition
+import at.ac.uibk.greatAdventure.greatAdventure.ItemPositionDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.SceneDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.StartDefinition
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import java.util.Random
 
 /**
  * Generates code from your model files on save.
@@ -16,6 +20,7 @@ import org.eclipse.xtext.generator.IGenerator
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class GreatAdventureGenerator implements IGenerator {
+	private EList<ItemPositionDefinition> positions;
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		fsa.generateFile('adventure.js', (resource.contents.get(0) as Adventure).contents)
@@ -30,6 +35,12 @@ class GreatAdventureGenerator implements IGenerator {
 				«scdef.contents»«IF scdef.name!=adventure.sceneDef.last.name»,«ENDIF»
 			«ENDFOR»
 		}
+		
+		var item = {
+			«FOR idef : adventure.itemDef»
+				«»
+			«ENDFOR»
+		}
 	'''
 	
 	def dispatch CharSequence getContents(StartDefinition s)'''
@@ -38,10 +49,33 @@ class GreatAdventureGenerator implements IGenerator {
 	'''
 	
 	def dispatch CharSequence getContents(SceneDefinition s)'''
+		«positions = s.items»
 		"«s.name»":{
 			image: "«s.img»",
-			items: [«FOR i : s.items»"«i.item.name»"«IF i.item.name!=s.items.last.item.name», «ENDIF»«ENDFOR»],
+			items: [«FOR i : positions»"«i.item.name»"«IF i.item.name!=positions.last.item.name», «ENDIF»«ENDFOR»],
 		}
 	'''
+	
+	def dispatch CharSequence getContents(ItemDefinition idef)'''
+		"«idef.name»":{
+			image: "«idef.img»",
+			canPickUp: «idef.pickup»,
+			«idef.pos»
+		}
+	'''
+	
+	def String getPos(ItemDefinition idef){
+		val pos = positions.findFirst[item.name == idef.name];
+		val returnString = new StringBuilder();
+		val rand = new Random();
+		if(pos != null){
+			returnString.append("posx: ").append(pos.xpos).append(",\n");
+			returnString.append("posy: ").append(pos.ypos).append(",\n");
+		} else { //no position specified for this item
+			returnString.append("posx: ").append(rand.nextInt(801)).append(",\n");
+			returnString.append("posy: ").append(rand.nextInt(601)).append(",\n");
+		}
+		return returnString.toString;
+	}
+	
 }
-
