@@ -4,9 +4,9 @@ generate greatAdventure "http://www.ac.at/uibk/greatAdventure/GreatAdventure"
 
 Adventure:
 	title = AdventureTitle 
-	(itemDef += ItemDefinition+ & sceneDef += SceneDefinition+)*
+	((itemDef += ItemDefinition) | (sceneDef += SceneDefinition))*
 	startDef = StartDefinition
-	(itemDef += ItemDefinition+ & sceneDef += SceneDefinition+)*
+	((itemDef += ItemDefinition) | (sceneDef += SceneDefinition))*
 ;
 	
 AdventureTitle:
