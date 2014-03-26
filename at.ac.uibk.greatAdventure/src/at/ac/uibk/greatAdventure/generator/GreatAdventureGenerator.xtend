@@ -40,7 +40,7 @@ class GreatAdventureGenerator implements IGenerator {
 	def dispatch CharSequence getContents(SceneDefinition s)'''
 		"«s.name»":{
 			image: "«s.img»",
-			items: [«FOR i : s.items»"«i.name»"«IF i.name!=s.items.last.name», «ENDIF»«ENDFOR»],
+			items: [«FOR i : s.items»"«i.item.name»"«IF i.item.name!=s.items.last.item.name», «ENDIF»«ENDFOR»],
 		}
 	'''
 }

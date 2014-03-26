@@ -1,16 +1,16 @@
-"The Great Adventure";
+"The Great Adventure"
 
-A "cup"{
-	- can be picked up.
-	- looks like "hugo.jpg".
-}
+A "cup":
+	- can be picked up
+	- looks like "hugo.jpg"
 
-The "house" looks like "house.jpg".
-In it is {
-	- a cup.
-}
 
-At first you:{
-	- are at the house.
-	- carry cup.
-}
+The "house" looks like "house.jpg" and in it are: 
+	- a cup at(100,100)
+
+In the beginning you:
+	- are at the house
+	- have cup
+
+
+
