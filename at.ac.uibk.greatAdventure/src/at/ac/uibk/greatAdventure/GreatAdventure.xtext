@@ -28,7 +28,7 @@ ItemDefinition:
 UseDefinition:
 	"- you can" name+=STRING "with"? ("it, which:" | "her, which:" | "him, which") 
 	(
-		("+ requires" reqs+=[ItemDefinition] ("or says" altText+=STRING)?)?
+		("+ requires" reqs=[ItemDefinition] ("or says" altText=STRING)?)?
 		&
 		("+ adds" adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
 		&
