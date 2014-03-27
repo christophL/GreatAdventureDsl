@@ -21,12 +21,12 @@ ItemDefinition:
 		&
 		(uses+=UseDefinition)*
 		&
-		(dialog+=DialogDefintion)?
+		(dialog=DialogDefintion)?
 	)
 ;
 
 UseDefinition:
-	"- you can" name+=STRING "with"? ("it, which:" | "her, which:" | "him, which") 
+	"- you can" name=STRING "with"? ("it, which:" | "her, which:" | "him, which") 
 	(
 		("+ requires" reqs=[ItemDefinition] ("or says" altText=STRING)?)?
 		&
