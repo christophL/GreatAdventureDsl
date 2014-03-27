@@ -32,16 +32,14 @@ class GreatAdventureGenerator implements IGenerator {
 		«adventure.startDef.contents»
 		
 		var scene = {
-			«var isfirst = true»
-			«FOR scdef : adventure.sceneDef»
-				«IF !isfirst», «ENDIF»«scdef.contents»«isfirst=false»
+			«FOR scdef : adventure.sceneDef SEPARATOR ","»
+				«scdef.contents»
 			«ENDFOR»
 		}
 		
 		var item = {
-			«isfirst = true»
-			«FOR idef : adventure.itemDef»
-				«IF !isfirst», «ENDIF»«idef.contents»«isfirst=false»
+			«FOR idef : adventure.itemDef SEPARATOR ","»
+				«idef.contents»
 			«ENDFOR»
 		}
 	'''
@@ -51,26 +49,22 @@ class GreatAdventureGenerator implements IGenerator {
 		var initialInventory = «s.startItems.nameArray»;
 	'''
 	
-	def dispatch CharSequence getContents(SceneDefinition s)'''
-		«positions = s.items»
+	def dispatch CharSequence getContents(SceneDefinition s){
+		positions = s.items'''
 		"«s.name»":{
 			image: "«s.img»",
-			«var isfirst = true»
-			items: [«FOR i : positions»«IF !isfirst», «ENDIF»"«i.item.name»"«isfirst=false»«ENDFOR»],
+			items: [«FOR i : positions SEPARATOR ", "»"«i.item.name»"«ENDFOR»],
 		}
-	'''
+	'''}
 	
 	def dispatch CharSequence getContents(ItemDefinition idef)'''
-		"«idef.name»":{
-			image: "«idef.img»",
-			canPickUp: «idef.pickup»,
-			«idef.pos»
-			«IF !idef.uses.empty»actions: {
-				«FOR udef : idef.uses»«udef.contents»,
-				«ENDFOR»
-			}
-			«ENDIF»
-		}
+	"«idef.name»":{
+		image: "«idef.img»",
+		canPickUp: «idef.pickup»,
+		«idef.pos»
+		«IF !idef.uses.empty»actions: { «FOR udef : idef.uses SEPARATOR ","»«udef.contents»
+				«ENDFOR» }«ENDIF»
+	}
 	'''
 	
 	def dispatch CharSequence getContents(UseDefinition udef)'''
@@ -143,7 +137,7 @@ class GreatAdventureGenerator implements IGenerator {
 	def String getNameArray(EList<ItemDefinition> l){
 		val builder = new StringBuilder;
 		var isfirst = true;
-		builder.append("[\"");
+		builder.append("[");
 		for(idef : l){
 			if(!isfirst){
 				builder.append(", ");
@@ -151,7 +145,7 @@ class GreatAdventureGenerator implements IGenerator {
 			}
 			builder.append("\"").append(idef.name).append("\"");
 		}
-		builder.append("]\"");
+		builder.append("]");
 		return builder.toString;
 	}
 }
