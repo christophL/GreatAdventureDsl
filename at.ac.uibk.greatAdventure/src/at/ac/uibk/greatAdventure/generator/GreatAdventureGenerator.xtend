@@ -8,6 +8,8 @@ import at.ac.uibk.greatAdventure.greatAdventure.ItemDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.ItemPositionDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.SceneDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.StartDefinition
+import at.ac.uibk.greatAdventure.greatAdventure.TalkDefinition
+import at.ac.uibk.greatAdventure.greatAdventure.TalkDefinitionMinus
 import at.ac.uibk.greatAdventure.greatAdventure.UseDefinition
 import java.util.Random
 import org.eclipse.emf.common.util.EList
@@ -60,12 +62,15 @@ class GreatAdventureGenerator implements IGenerator {
 	def dispatch CharSequence getContents(ItemDefinition idef)'''
 	"«idef.name»": {
 		image: "«idef.img»",
-		canPickUp: «idef.pickup»,
-		«idef.pos»
-		«IF !idef.uses.empty»actions: { 
+		canPickUp: «idef.pickup»
+		«idef.pos»«IF !idef.uses.empty»,
+		actions: { 
 			«FOR udef : idef.uses SEPARATOR ","»
-				«udef.contents»
-			«ENDFOR» 
+			«udef.contents»
+			«ENDFOR»
+		}«ENDIF»«IF idef.dialog!=null»,
+		dialog: {
+			«idef.dialog.talk.contents»
 		}«ENDIF»
 	}
 	'''
@@ -80,13 +85,37 @@ class GreatAdventureGenerator implements IGenerator {
 		val rand = new Random;
 		if(pos != null){
 			returnString.append("posx: ").append(pos.xpos).append(",\n");
-			returnString.append("posy: ").append(pos.ypos).append(",\n");
+			returnString.append("posy: ").append(pos.ypos);
 		} else { //no position specified for this item
 			returnString.append("posx: ").append(rand.nextInt(750)).append(",\n");
-			returnString.append("posy: ").append(rand.nextInt(450)).append(",\n");
+			returnString.append("posy: ").append(rand.nextInt(450));
 		}
 		return returnString.toString;
 	}
+	
+	def dispatch CharSequence getContents(TalkDefinition tdef)'''
+		say: "«tdef.say»",
+		«IF !tdef.dels.empty»remove: [«FOR i : tdef.dels SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
+		«IF !tdef.adds.empty»add: [«FOR i : tdef.adds SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
+		«IF !tdef.answers.empty»answers: {
+			«FOR a : tdef.answers SEPARATOR ","»"«a.answer»": {
+				«a.talk.contents»
+			}«ENDFOR»
+		},«ENDIF»
+		reset: true
+	'''
+	
+		def dispatch CharSequence getContents(TalkDefinitionMinus tdef)'''
+		say: "«tdef.say»",
+		«IF !tdef.dels.empty»remove: [«FOR i : tdef.dels SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
+		«IF !tdef.adds.empty»add: [«FOR i : tdef.adds SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
+		«IF !tdef.answers.empty»answers: {
+			«FOR a : tdef.answers SEPARATOR ","»"«a.answer»": {
+				«a.talk.contents»
+			}«ENDFOR»
+		},«ENDIF»
+		reset: true
+	'''
 	
 	def String getUseString(UseDefinition udef){
 		var isfirst = true;

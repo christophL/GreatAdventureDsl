@@ -21,7 +21,7 @@ ItemDefinition:
 		&
 		(uses+=UseDefinition)*
 		&
-		(dialog=DialogDefintion)?
+		(dialog=DialogDefinition)?
 	)
 ;
 
@@ -41,7 +41,7 @@ UseDefinition:
 	
 ;
 
-DialogDefintion:
+DialogDefinition:
 	"- talks with you:"
 		talk = TalkDefinition
 ;
@@ -94,6 +94,7 @@ StartDefinition:
 		("- have" startItems+=[ItemDefinition] ("," startItems+=[ItemDefinition])*)?
 	) 
 ;
+
 
 
 
