@@ -3,7 +3,14 @@
 A "cup":
 	- can be picked up
 	- looks like "hugo.jpg"
-
+	
+A "fork":
+	- can be picked up
+	- looks like "asdf.jpg"
+	- you can "rub" it, which:
+		+ says "Nothing happens..."
+	- you can "bend" it, which:
+		+ says "Fork = bent."
 
 The "house" looks like "house.jpg" and in it are: 
 	- a cup at(100,100)
@@ -11,6 +18,5 @@ The "house" looks like "house.jpg" and in it are:
 In the beginning you:
 	- are at the house
 	- have cup
-
 
 

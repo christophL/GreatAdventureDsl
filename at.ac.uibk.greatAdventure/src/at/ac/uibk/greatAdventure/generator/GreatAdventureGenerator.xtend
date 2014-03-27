@@ -46,24 +46,27 @@ class GreatAdventureGenerator implements IGenerator {
 	
 	def dispatch CharSequence getContents(StartDefinition s)'''
 		var startSceneId = "«s.startLoc.name»";
-		var initialInventory = «s.startItems.nameArray»;
+		var initialInventory = [«FOR i : s.startItems SEPARATOR ", "»"«i.name»"«ENDFOR»];
 	'''
 	
 	def dispatch CharSequence getContents(SceneDefinition s){
 		positions = s.items'''
-		"«s.name»":{
+		"«s.name»": {
 			image: "«s.img»",
 			items: [«FOR i : positions SEPARATOR ", "»"«i.item.name»"«ENDFOR»],
 		}
 	'''}
 	
 	def dispatch CharSequence getContents(ItemDefinition idef)'''
-	"«idef.name»":{
+	"«idef.name»": {
 		image: "«idef.img»",
 		canPickUp: «idef.pickup»,
 		«idef.pos»
-		«IF !idef.uses.empty»actions: { «FOR udef : idef.uses SEPARATOR ","»«udef.contents»
-				«ENDFOR» }«ENDIF»
+		«IF !idef.uses.empty»actions: { 
+			«FOR udef : idef.uses SEPARATOR ","»
+				«udef.contents»
+			«ENDFOR» 
+		}«ENDIF»
 	}
 	'''
 	
