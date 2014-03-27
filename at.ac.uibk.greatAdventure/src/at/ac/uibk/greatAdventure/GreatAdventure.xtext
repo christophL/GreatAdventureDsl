@@ -34,7 +34,7 @@ UseDefinition:
 		&
 		("+ removes" dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
 		&
-		("+ says" text+=STRING)?
+		("+ says" text=STRING)?
 		&
 		("+ takes you to the" followScene=[SceneDefinition])?
 	)
