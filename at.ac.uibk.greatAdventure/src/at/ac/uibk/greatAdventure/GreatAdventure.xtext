@@ -54,6 +54,8 @@ TalkDefinition:
 	(("+ it removes" | "+ she removes" | "+ he removes") dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
 	&
 	(((answers += AnswerDefinition)+ "+ no more answers") | "+ you do not answer")	
+	&
+	(reset ?= "+ forget about conversation")?
 ;
 
 AnswerDefinition:
@@ -69,6 +71,8 @@ TalkDefinitionMinus:
 	(("- it removes" | "- she removes" | "- he removes") dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
 	&
 	((answers += AnswerDefinitionMinus)+ "- no more answers" | "- you do not answer")
+	&
+	(reset ?= "- forget about conversation")?
 ;
 
 AnswerDefinitionMinus:

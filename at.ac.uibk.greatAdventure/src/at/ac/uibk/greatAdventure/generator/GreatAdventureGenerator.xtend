@@ -102,7 +102,7 @@ class GreatAdventureGenerator implements IGenerator {
 				«a.talk.contents»
 			}«ENDFOR»
 		},«ENDIF»
-		reset: true
+		reset: «tdef.reset»
 	'''
 	
 		def dispatch CharSequence getContents(TalkDefinitionMinus tdef)'''
@@ -114,7 +114,7 @@ class GreatAdventureGenerator implements IGenerator {
 				«a.talk.contents»
 			}«ENDFOR»
 		},«ENDIF»
-		reset: true
+		reset: «tdef.reset»
 	'''
 	
 	def String getUseString(UseDefinition udef){
@@ -172,7 +172,8 @@ class GreatAdventureGenerator implements IGenerator {
 		builder.append("[");
 		for(idef : l){
 			if(!isfirst){
-				builder.append(", ");
+				builder.append(", ");				
+			}else{
 				isfirst = false;
 			}
 			builder.append("\"").append(idef.name).append("\"");
