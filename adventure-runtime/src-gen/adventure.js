@@ -31,8 +31,8 @@ var item = {
 	"djinni": {
 		image: "https://pbs.twimg.com/profile_images/2845043349/979b3030b0f72c7401a77600741e9c8e.jpeg",
 		canPickUp: false,
-		posx: 284,
-		posy: 181,
+		posx: 589,
+		posy: 177,
 		actions: { 
 			"touch": { message: "Ouch! What's wrong with you?!" }
 		},
@@ -103,8 +103,8 @@ var item = {
 	"magic_fork": {
 		image: "http://i.imgur.com/bbNRs.png",
 		canPickUp: false,
-		posx: 458,
-		posy: 335,
+		posx: 356,
+		posy: 264,
 		actions: { 
 			"rub": { remove: ["coffee"], add: ["coffee"] }
 		}
@@ -127,8 +127,8 @@ var item = {
 	"key": {
 		image: "http://icons.iconarchive.com/icons/aha-soft/security/256/key-icon.png",
 		canPickUp: true,
-		posx: 507,
-		posy: 29
+		posx: 7,
+		posy: 230
 	},
 	"door": {
 		image: "img/door.png",
