@@ -97,6 +97,7 @@ class GreatAdventureGenerator implements IGenerator {
 		say: "«tdef.say»",
 		«IF !tdef.dels.empty»remove: [«FOR i : tdef.dels SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
 		«IF !tdef.adds.empty»add: [«FOR i : tdef.adds SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
+		«IF tdef.followScene!=null» scene: "«tdef.followScene.name»",«ENDIF»
 		«IF !tdef.answers.empty»answers: {
 			«FOR a : tdef.answers SEPARATOR ","»"«a.answer»": {
 				«a.talk.contents»
@@ -109,6 +110,7 @@ class GreatAdventureGenerator implements IGenerator {
 		say: "«tdef.say»",
 		«IF !tdef.dels.empty»remove: [«FOR i : tdef.dels SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
 		«IF !tdef.adds.empty»add: [«FOR i : tdef.adds SEPARATOR ", "»"«i.name»"«ENDFOR»],«ENDIF»
+		«IF tdef.followScene!=null» scene: "«tdef.followScene.name»",«ENDIF»
 		«IF !tdef.answers.empty»answers: {
 			«FOR a : tdef.answers SEPARATOR ","»"«a.answer»": {
 				«a.talk.contents»

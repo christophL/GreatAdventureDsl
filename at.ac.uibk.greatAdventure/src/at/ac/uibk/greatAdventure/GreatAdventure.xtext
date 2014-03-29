@@ -47,15 +47,17 @@ DialogDefinition:
 ;
 
 TalkDefinition:
-	(("+ it says" | "+ she says" | "+ he says") say=STRING)
+	("+ says" say=STRING)
 	&
-	(("+ it adds" | "+ she adds" | "+ he adds") adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
+	("+ adds" adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
 	&
-	(("+ it removes" | "+ she removes" | "+ he removes") dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+	("+ removes" dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+	&
+	("+ takes you to the" followScene=[SceneDefinition])?
 	&
 	(((answers += AnswerDefinition)+ "+ no more answers") | "+ you do not answer")	
 	&
-	(reset ?= "+ forget about conversation")?
+	(reset ?= "+ forgets about conversation")?
 ;
 
 AnswerDefinition:
@@ -64,15 +66,17 @@ AnswerDefinition:
 ;
 
 TalkDefinitionMinus:
-	(("- it says" | "- she says" | "- he says") say=STRING)
+	("- says" say=STRING)
 	&
-	(("- it adds" | "- she adds" | "- he adds") adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
+	("- adds" adds+=[ItemDefinition] ("," adds+=[ItemDefinition])*)?
 	&
-	(("- it removes" | "- she removes" | "- he removes") dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+	("- removes" dels+=[ItemDefinition] ("," dels+=[ItemDefinition])*)?
+	&
+	("- takes you to the" followScene=[SceneDefinition])?
 	&
 	((answers += AnswerDefinitionMinus)+ "- no more answers" | "- you do not answer")
 	&
-	(reset ?= "- forget about conversation")?
+	(reset ?= "- forgets about conversation")?
 ;
 
 AnswerDefinitionMinus:
