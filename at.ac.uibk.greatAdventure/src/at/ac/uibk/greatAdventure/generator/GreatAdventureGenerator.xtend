@@ -11,8 +11,9 @@ import at.ac.uibk.greatAdventure.greatAdventure.StartDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.TalkDefinition
 import at.ac.uibk.greatAdventure.greatAdventure.TalkDefinitionMinus
 import at.ac.uibk.greatAdventure.greatAdventure.UseDefinition
+import java.util.ArrayList
+import java.util.List
 import java.util.Random
-import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
@@ -23,7 +24,7 @@ import org.eclipse.xtext.generator.IGenerator
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class GreatAdventureGenerator implements IGenerator {
-	private EList<ItemPositionDefinition> positions;
+	val List<ItemPositionDefinition> positions = new ArrayList<ItemPositionDefinition>;
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		fsa.generateFile('adventure.js', (resource.contents.get(0) as Adventure).contents)
@@ -37,13 +38,13 @@ class GreatAdventureGenerator implements IGenerator {
 			«FOR scdef : adventure.sceneDef SEPARATOR ","»
 				«scdef.contents»
 			«ENDFOR»
-		}
+		};
 		
 		var item = {
 			«FOR idef : adventure.itemDef SEPARATOR ","»
 				«idef.contents»
 			«ENDFOR»
-		}
+		};
 	'''
 	
 	def dispatch CharSequence getContents(StartDefinition s)'''
@@ -52,17 +53,17 @@ class GreatAdventureGenerator implements IGenerator {
 	'''
 	
 	def dispatch CharSequence getContents(SceneDefinition s){
-		positions = s.items'''
+		positions.addAll(s.items)'''
 		"«s.name»": {
 			image: "«s.img»",
-			items: [«FOR i : positions SEPARATOR ", "»"«i.item.name»"«ENDFOR»],
+			items: [«FOR i : s.items SEPARATOR ", "»"«i.item.name»"«ENDFOR»],
 		}
 	'''}
 	
 	def dispatch CharSequence getContents(ItemDefinition idef)'''
 	"«idef.name»": {
 		image: "«idef.img»",
-		canPickUp: «idef.pickup»
+		canPickUp: «idef.pickup»,
 		«idef.pos»«IF !idef.uses.empty»,
 		actions: { 
 			«FOR udef : idef.uses SEPARATOR ","»
