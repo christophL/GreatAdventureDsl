@@ -1,22 +1,112 @@
 "The Great Adventure"
 
-A "cup":
-	- can be picked up
-	- looks like "hugo.jpg"
-	
-A "fork":
-	- can be picked up
-	- looks like "asdf.jpg"
+A "lamp":
+	- looks like "http://img.hsmagazine.net/2012/12/lamp-of-the-inferno.png"
+	- you can "kick" it, which:
+		+ says "Outch...<img src='http://www.freesmileys.org/smileys/smiley-angry019.gif'>"
 	- you can "rub" it, which:
-		+ says "Nothing happens..."
-	- you can "bend" it, which:
-		+ says "Fork = bent."
+		 + adds djinni
+		 + removes lamp
+		
+A "djinni":
+	- looks like "https://pbs.twimg.com/profile_images/2845043349/979b3030b0f72c7401a77600741e9c8e.jpeg"
+	- you can "touch" him, which
+		+ says "Ouch! What's wrong with you?!"
+	- talks with you:
+		+ says "What is 3 times three?"
+		+ you say "3":
+			- says "Your answer is 3?"
+			- you say "Ahm... yes?":
+				+ says "That's wrong."
+				+ adds lamp
+				+ removes djinni
+				+ forgets about conversation
+				+ you do not answer
+			- you say "No... of course not. It's 2.":
+				+ says "Really? I don't think so."
+				+ removes djinni
+				+ adds lamp
+				+ forgets about conversation
+				+ you do not answer
+			- no more answers
+		+ you say "9":
+			- says "Sounds right, but it's wrong..."
+			- you say "Are you kidding me?":
+				+ says "Nope."
+				+ removes djinni
+				+ adds lamp
+				+ forgets about conversation
+				+ you do not answer
+			- you say "3 x 3 = 9, stupid!":
+				+ says "..%&$#?@!"
+				+ removes djinni
+				+ you do not answer
+			- no more answers
+		+ you say "three three three":
+			- says "W R O N G"
+			- removes djinni
+			- adds lamp
+			- forgets about conversation
+			- you do not answer
+		+ you say "threethreethree":
+			- says "Right answer. This is for you!"
+			- adds magic_fork
+			- removes djinni
+			- you do not answer
+		+ you say "Counter question: Where is the kitchen?":
+			- says "As you wish..."
+			- removes djinni
+			- adds lamp
+			- takes you to the kitchen
+			- you do not answer
+		+ no more answers
 
-The "house" looks like "house.jpg" and in it are: 
-	- a cup at(100,100)
+A "cup":
+	- looks like "http://www.rockiesventureclub.org/wp-content/uploads/2012/06/cup-coffee-icon.png"
+	- you can "drink" it, which:
+		+ adds empty_cup
+		+ removes cup
+		+ says "Yummy coffee."
+	
+A "magic_fork":
+	- looks like "http://i.imgur.com/bbNRs.png"
+	- you can "rub" it, which:
+		+ adds coffee
+		+ removes coffee
+	
+A "empty_cup":
+	- looks like "http://ecx.images-amazon.com/images/I/31nMJoEo9aL._SL75_SS50_.jpg"
+	- you can "fill" it, which:
+		+ requires coffee or says "No beans. No coffee."
+		+ adds cup
+		+ removes empty_cup, coffee
+	
+A "coffee":
+	- looks like "https://lh5.googleusercontent.com/-0DLJkGlbhrg/Tv8c1iUzbxI/AAAAAAAAAN0/ckM6zcIywLE/s128/coffee%2Bbeans.jpg"
+	- can be picked up
+	
+A "key":
+	- looks like "http://icons.iconarchive.com/icons/aha-soft/security/256/key-icon.png"
+	- can be picked up
+	
+A "door":
+	- looks like "img/door.png"
+	- you can "open" it, which:
+		+ requires key or says "Can't open door - locked."
+		+ removes key
+		+ takes you to the kitchen
+
+The "house" looks like "http://4.bp.blogspot.com/-12bmIPR3V-0/Tk2n6WI_yzI/AAAAAAAAC1o/a8Fzjqq4nDU/s1600/Armada_House_Bonjourlife.com_1.jpg" and in it are:
+	- a cup at(200, 0)
+	- a lamp at(300, 300)
+	- a door at(560, 210)
+	- a coffee at(100, 20)
+	
+The "kitchen" looks like "http://hgtv.sndimg.com/HGTV/2011/12/02/HGTV_hdivd1310-kitchen-after-Crop_s4x3.jpg" and in it are:
+	- a empty_cup at(200, 0)
 
 In the beginning you:
 	- are at the house
-	- have cup
+	- have key
 
 
