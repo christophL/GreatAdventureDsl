@@ -138,14 +138,14 @@ class GreatAdventureGenerator implements IGenerator {
 			if(!isfirst){
 				returnString.append(", ");
 			}
-			returnString.append("remove: ").append(udef.dels.nameArray);
+			returnString.append("remove: ").append('''[«FOR i : udef.dels SEPARATOR ", "»"«i.name»"«ENDFOR»]''');
 			isfirst = false;
 		}	
 		if(udef.adds!=null && !udef.adds.empty){
 			if(!isfirst){
 				returnString.append(", ");
 			}
-			returnString.append("add: ").append(udef.adds.nameArray);
+			returnString.append("add: ").append('''[«FOR i : udef.adds SEPARATOR ", "»"«i.name»"«ENDFOR»]''');
 			isfirst = false;
 		}
 		if(udef.text!=null && !udef.text.empty){
@@ -164,21 +164,5 @@ class GreatAdventureGenerator implements IGenerator {
 		}
 		
 		return returnString.toString;
-	}
-	
-	def String getNameArray(EList<ItemDefinition> l){
-		val builder = new StringBuilder;
-		var isfirst = true;
-		builder.append("[");
-		for(idef : l){
-			if(!isfirst){
-				builder.append(", ");				
-			}else{
-				isfirst = false;
-			}
-			builder.append("\"").append(idef.name).append("\"");
-		}
-		builder.append("]");
-		return builder.toString;
 	}
 }
