@@ -95,6 +95,11 @@ A "door":
 		+ requires key or says "Can't open door - locked."
 		+ removes key
 		+ takes you to the kitchen
+		
+A "doenertier":
+	- looks like "http://www.s-p-a.de/grafix/doenertier2.gif"
+	- you can "eat" it, which:
+		+ takes you to the end_scene
 
 The "house" looks like "http://4.bp.blogspot.com/-12bmIPR3V-0/Tk2n6WI_yzI/AAAAAAAAC1o/a8Fzjqq4nDU/s1600/Armada_House_Bonjourlife.com_1.jpg" and in it are:
 	- a cup at(200, 0)
@@ -104,6 +109,9 @@ The "house" looks like "http://4.bp.blogspot.com/-12bmIPR3V-0/Tk2n6WI_yzI/AAAAAA
 	
 The "kitchen" looks like "http://hgtv.sndimg.com/HGTV/2011/12/02/HGTV_hdivd1310-kitchen-after-Crop_s4x3.jpg" and in it are:
 	- a empty_cup at(200, 0)
+	- a doenertier at(400,200)
+	
+The "end_scene" looks like "http://www.carp.ca/wp-content/uploads/2013/07/the-end-3.jpg".
 
 In the beginning you:
 	- are at the house

@@ -9,7 +9,11 @@ var scene = {
 	},
 	"kitchen": {
 		image: "http://hgtv.sndimg.com/HGTV/2011/12/02/HGTV_hdivd1310-kitchen-after-Crop_s4x3.jpg",
-		items: ["empty_cup"],
+		items: ["empty_cup", "doenertier"],
+	},
+	"end_scene": {
+		image: "http://www.carp.ca/wp-content/uploads/2013/07/the-end-3.jpg",
+		items: [],
 	}
 };
 
@@ -27,8 +31,8 @@ var item = {
 	"djinni": {
 		image: "https://pbs.twimg.com/profile_images/2845043349/979b3030b0f72c7401a77600741e9c8e.jpeg",
 		canPickUp: false,
-		posx: 656,
-		posy: 239,
+		posx: 284,
+		posy: 181,
 		actions: { 
 			"touch": { message: "Ouch! What's wrong with you?!" }
 		},
@@ -99,8 +103,8 @@ var item = {
 	"magic_fork": {
 		image: "http://i.imgur.com/bbNRs.png",
 		canPickUp: false,
-		posx: 490,
-		posy: 77,
+		posx: 458,
+		posy: 335,
 		actions: { 
 			"rub": { remove: ["coffee"], add: ["coffee"] }
 		}
@@ -123,8 +127,8 @@ var item = {
 	"key": {
 		image: "http://icons.iconarchive.com/icons/aha-soft/security/256/key-icon.png",
 		canPickUp: true,
-		posx: 563,
-		posy: 354
+		posx: 507,
+		posy: 29
 	},
 	"door": {
 		image: "img/door.png",
@@ -133,6 +137,15 @@ var item = {
 		posy: 210,
 		actions: { 
 			"open": { requires: "key", scene: "kitchen", remove: ["key"], alt_message: "Can't open door - locked." }
+		}
+	},
+	"doenertier": {
+		image: "http://www.s-p-a.de/grafix/doenertier2.gif",
+		canPickUp: false,
+		posx: 400,
+		posy: 200,
+		actions: { 
+			"eat": { scene: "end_scene" }
 		}
 	}
 };
